@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -7,9 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./register-modal.component.scss'],
 })
 export class RegisterModalComponent {
-  constructor(public activeModal: NgbActiveModal) {}
-
-
+  constructor(private activeModal: NgbActiveModal, private http: HttpClient) {}
 
   imageUrl: string = '';
 
@@ -20,7 +19,6 @@ export class RegisterModalComponent {
       const reader = new FileReader();
 
       reader.onload = () => {
-        // Display the preview
         this.imageUrl = reader.result as string;
       };
 
@@ -29,9 +27,27 @@ export class RegisterModalComponent {
   }
 
   register() {
-    // Add logic for handling registration form submission
-    // You can close the modal after successful registration
-    this.activeModal.close();
+    const user = {
+      username: 'john_doe',
+      email: 'john.doe@example.com',
+      firstName: 'John',
+      lastName: 'Doe',
+      password: 'password123',
+      repeatPassword: 'password123',
+      mobileNumber: '1234567890',
+    };
+
+    this.http
+      .post('http://localhost:5000/user', user, { responseType: 'text' })
+      .subscribe(
+        (response) => {
+          console.log('Registration successful:', response);
+          this.activeModal.close();
+        },
+        (error) => {
+          console.error('Registration failed:', error);
+        }
+      );
   }
 
   closeModal() {

@@ -3,16 +3,81 @@
     height: 100vh;
 }
 
+.co{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    width: 100%;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-name {
+    margin-right: 10px;
+}
+
+.settings-icon,
+.notification-icon {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.dropdown-menu {
+    display: block !important;
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu div {
+    cursor: pointer;
+    padding: 8px;
+}
+
+.notification-icon img,
+.settings-icon img {
+  width: 24px; 
+  height: 24px;
+}
+
+.notification-badge {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
 .friend-list {
-    width: 30%;
+    flex: 1;
     background-color: #f0f0f0;
     padding: 10px;
+   
 }
 
 .chat {
-    flex: 1;
+    flex: 2;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .chat-header {
@@ -21,9 +86,9 @@
     padding: 10px;
 }
 
-/* chat-page.component.scss */
-
 .chat-messages {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     overflow-y: auto;
 
@@ -42,8 +107,11 @@
 }
 
 .received {
-    background-color: #ffffff;
+    background-color: #f0f0f0;
     align-self: flex-start;
+    padding: 8px;
+    border-radius: 8px;
+
 }
 
 
@@ -67,4 +135,45 @@ button {
     color: #ffffff;
     border: none;
     cursor: pointer;
+}
+
+.emoji-icon {
+    margin: 0 10px;
+}
+
+.emoji-picker {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 150px;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-item {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 4px;
+}
+
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
 }

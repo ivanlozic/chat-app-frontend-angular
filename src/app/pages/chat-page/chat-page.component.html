@@ -1,20 +1,75 @@
 <div class="chat-container">
-    <div class="friend-list">
-      <app-friend-list (friendSelected)="onFriendSelected($event)"></app-friend-list>
-    </div>
-    <div class="chat">
-      <div class="chat-header">
-        <h2>{{ selectedFriend ? selectedFriend.name : 'No Friend Selected' }}</h2>
-      </div>
-      <div class="chat-messages">
-        <div *ngFor="let message of selectedFriend.messages" [ngClass]="{'message': true, 'sent': message.sent, 'received': !message.sent}">
-          {{ message.content }}
+  <div class="co">
+    <div class="header">
+      <div class="profile-info">
+        <div class="profile-name">{{ yourName }}</div>
+        <div class="notification-icon" (click)="openNotifications()">
+            <img *ngIf="hasFriendRequest" src="../../assets/images/notification.png" alt="Notifications" />
+            <img *ngIf="!hasFriendRequest" src="../../assets/images/bell.png" alt="Bell" />
+
+          <div *ngIf="hasFriendRequest" class="notification-badge"></div>
+        </div>
+        <div class="settings-icon" (click)="openDropdown()">
+          <img src="../../assets/images/settings.png" alt="Settings" />
         </div>
       </div>
-      <div class="chat-input">
-        <input [(ngModel)]="text" (keyup.enter)="onEnterPress()" type="text" placeholder="Type your message" class="message-input" />
-        <button (click)="sendMessage()">Send</button>
+      <div *ngIf="showDropdown" class="dropdown-menu">
+        <div (click)="goToEditProfile()">Edit Profile</div>
+      </div>
+    </div>
+    <div class="friend-list">
+      <app-friend-list
+        (friendSelected)="onFriendSelected($event)"
+      ></app-friend-list>
+    </div>
+  </div>
+
+  <div class="chat">
+    <div class="chat-header">
+      <h2>
+        {{
+          isFriendTyping
+            ? selectedFriend.name + " is typing..."
+            : selectedFriend
+            ? selectedFriend.name
+            : "No Friend Selected"
+        }}
+      </h2>
+    </div>
+    <div class="chat-messages">
+      <div
+        *ngFor="let message of selectedFriend.messages"
+        [ngClass]="{
+          message: true,
+          sent: message.sent,
+          received: !message.sent
+        }"
+      >
+        {{ message.content }}
+        <div class="message-timestamp">
+          {{ message.timestamp | date : "shortTime" }}
+        </div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input
+        [(ngModel)]="text"
+        (keyup.enter)="onEnterPress()"
+        type="text"
+        placeholder="Type your message"
+        class="message-input"
+      />
+      <button class="emoji-icon" (click)="openEmojiPicker()">😊</button>
+      <button (click)="sendMessage()">Send</button>
+    </div>
+    <div *ngIf="showEmojiPicker" class="emoji-picker">
+      <div
+        *ngFor="let emoji of emojis"
+        (click)="insertEmoji(emoji)"
+        class="emoji-item"
+      >
+        {{ emoji }}
       </div>
     </div>
   </div>
-  
+</div>

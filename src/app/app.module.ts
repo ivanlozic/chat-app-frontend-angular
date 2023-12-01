@@ -14,6 +14,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
+import { EditProfilePageComponent } from './pages/edit-profile-page/edit-profile-page.component';
+import { RouterModule } from '@angular/router';
+import {  HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,11 +26,15 @@ import { FriendListComponent } from './components/friend-list/friend-list.compon
     ChatPageComponent,
     RegisterModalComponent,
     FriendListComponent,
+    EditProfilePageComponent,
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     FormsModule,
+   
+    HttpClientModule,
     NgbModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
