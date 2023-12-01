@@ -1,0 +1,32 @@
+<!-- register-modal.component.html -->
+
+<div class="modal-header">
+  <h4 class="modal-title">Register</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <label for="newUsername">Username:</label>
+  <input type="text" id="newUsername" name="newUsername" required />
+
+  <label for="newEmail">Email:</label>
+  <input type="email" id="newEmail" name="newEmail" required />
+
+  <label for="newFirstName">First Name:</label>
+  <input type="text" id="newFirstName" name="newFirstName" required />
+
+  <label for="newLastName">Last Name:</label>
+  <input type="text" id="newLastName" name="newLastName" required />
+
+  <label for="newPassword">Password:</label>
+  <input type="password" id="newPassword" name="newPassword" required />
+
+  <label for="repeatPassword">Repeat Password:</label>
+  <input type="password" id="repeatPassword" name="repeatPassword" required />
+
+  <label for="mobileNumber">Mobile Number:</label>
+  <input type="tel" id="mobileNumber" name="mobileNumber" required />
+
+  <button type="button" (click)="register()">Register</button>
+</div>

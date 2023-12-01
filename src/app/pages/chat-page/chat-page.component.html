@@ -1,0 +1,22 @@
+<!-- chat-page.component.html -->
+<div class="chat-container">
+    <div class="friend-list">
+      <!-- Add your friend list component here if needed -->
+      <app-friend-list></app-friend-list>
+    </div>
+    <div class="chat">
+      <div class="chat-header">
+        <h2>Chat Title</h2>
+      </div>
+      <div class="chat-messages">
+        <div *ngFor="let message of messages" class="message">
+          {{ message }}
+        </div>
+      </div>
+      <div class="chat-input">
+        <input [(ngModel)]="text"  (keyup.enter)="onEnterPress()" type="text" placeholder="Type your message" class="message-input" />
+        <button (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+  

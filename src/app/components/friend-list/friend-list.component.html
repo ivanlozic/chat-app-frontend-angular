@@ -1,0 +1,9 @@
+<div class="friend-list">
+    <h3>Friend List</h3>
+    <ul>
+      <li *ngFor="let friend of friends" (click)="selectFriend(friend)">
+        {{ friend.name }}
+      </li>
+    </ul>
+  </div>
+  
