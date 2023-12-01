@@ -1,47 +1,45 @@
-/* register-modal.component.scss */
-
 .modal-header {
     background-color: #007bff;
     color: white;
     padding: 10px;
     display: flex;
     justify-content: space-between;
-  }
-  
-  .modal-title {
+}
+
+.modal-title {
     font-size: 1.5rem;
-  }
-  
-  .close {
+}
+
+.close {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
     color: white;
-  }
-  
-  .modal-body {
+}
+
+.modal-body {
     padding: 20px;
-  }
-  
- 
+}
+
+
 
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-  }
-  
-  input {
+}
+
+input {
     width: 100%;
     padding: 10px;
     margin-bottom: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
-  }
-  
-  button {
+}
+
+button {
     background-color: #007bff;
     color: white;
     padding: 12px;
@@ -49,9 +47,21 @@ label {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
+}
+
+
+.preview {
+    margin-top: 8px;
+
+    img {
+        max-width: 60%;
+        max-height: 60%;
+        width: auto;
+        height: auto;
+        border-radius: 4px;
+    }
+}

@@ -6,12 +6,16 @@ import { Component } from '@angular/core';
   styleUrl: './chat-page.component.scss',
 })
 export class ChatPageComponent {
-  messages: string[] = [];
   text: string = '';
+  selectedFriend: any;
+
+  onFriendSelected(friend: any) {
+    this.selectedFriend = friend;
+  }
 
   sendMessage() {
-    if (this.text.trim() !== '') {
-      this.messages.push(this.text);
+    if (this.text.trim() !== '' && this.selectedFriend) {
+      this.selectedFriend.messages.push({ content: this.text, sent: true });
       this.text = '';
     }
   }

@@ -1,5 +1,3 @@
-<!-- register-modal.component.html -->
-
 <div class="modal-header">
   <h4 class="modal-title">Register</h4>
   <button type="button" class="close" aria-label="Close" (click)="closeModal()">
@@ -28,5 +26,16 @@
   <label for="mobileNumber">Mobile Number:</label>
   <input type="tel" id="mobileNumber" name="mobileNumber" required />
 
+  <label for="imageInput">Upload Profile Photo:</label>
+  <input
+    type="file"
+    id="imageInput"
+    (change)="handleImageUpload($event)"
+    accept="image/*"
+  />
+
+  <div *ngIf="imageUrl" class="preview">
+    <img [src]="imageUrl" alt="Uploaded Image" />
+  </div>
   <button type="button" (click)="register()">Register</button>
 </div>

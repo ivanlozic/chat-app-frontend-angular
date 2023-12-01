@@ -1,9 +1,12 @@
-<div class="friend-list">
-    <h3>Friend List</h3>
-    <ul>
-      <li *ngFor="let friend of friends" (click)="selectFriend(friend)">
-        {{ friend.name }}
-      </li>
-    </ul>
-  </div>
-  
+<div class="add-friend">
+  <input
+    [(ngModel)]="newFriendName"
+    type="text"
+    placeholder="Enter friend's name"
+  />
+  <button (click)="addFriend()">Add</button>
+</div>
+
+<ul *ngFor="let friend of friends" (click)="selectFriend(friend)">
+  <li [ngClass]="{ selected: friend === selectedFriend }">{{ friend.name }}</li>
+</ul>
