@@ -1,12 +1,12 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterModalComponent } from '../register-modal/register-modal.component';
+import { RegisterModalComponent } from './components/register-modal/register-modal.component';
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
-import { selectError, selectLoggedIn } from '../../reducers/auth.reducers';
+import { selectError, selectLoggedIn } from '../../../auth/auth.reducers';
 
 @Component({
   selector: 'app-login-form',

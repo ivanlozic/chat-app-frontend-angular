@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { ChatPageComponent } from './pages/chat-page/chat-page.component';
-import { EditProfilePageComponent } from './pages/edit-profile-page/edit-profile-page.component';
+import { HomePageComponent } from './home-page/home-page.component'; 
+import { ChatPageComponent } from './chat-page/chat-page.component';
+import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent },

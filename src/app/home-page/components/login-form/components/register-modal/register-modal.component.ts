@@ -28,6 +28,7 @@ export class RegisterModalComponent {
 
   register() {
     const user = {
+      id: 1,
       username: 'john_doe',
       email: 'john.doe@example.com',
       firstName: 'John',

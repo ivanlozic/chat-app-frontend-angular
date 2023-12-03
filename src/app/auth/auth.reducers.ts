@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import * as AuthActions from '../actions/auth.actions';
+import * as AuthActions from './auth.actions';
 
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
