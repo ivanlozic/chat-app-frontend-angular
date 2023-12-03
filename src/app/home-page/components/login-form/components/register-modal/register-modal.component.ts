@@ -28,14 +28,14 @@ export class RegisterModalComponent {
 
   register() {
     const user = {
-      id: 1,
-      username: 'john_doe',
-      email: 'john.doe@example.com',
-      firstName: 'John',
-      lastName: 'Doe',
-      password: 'password123',
-      repeatPassword: 'password123',
-      mobileNumber: '1234567890',
+      id: 4,
+      username: 'Emma',
+      email: 'emma@example.com',
+      firstName: 'Emma',
+      lastName: 'Watson',
+      password: 'emma@123',
+      repeatPassword: 'emma@123',
+      mobileNumber: '9998887777',
     };
 
     this.http

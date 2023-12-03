@@ -32,11 +32,16 @@ export class LoginFormComponent {
   }
   async login() {
     try {
-      await this.authService.login(this.username, this.password);
+      const response = await this.authService
+        .login(this.username, this.password)
+        .toPromise();
 
-      this.store.dispatch({ type: 'LOGGED_IN' });
-
-      this.router.navigate(['/chat']);
+      if (response && response.token) {
+        this.store.dispatch({ type: 'LOGGED_IN' });
+        this.router.navigate(['/chat']);
+      } else {
+        console.error('Login failed: Invalid token in response');
+      }
     } catch (error: any) {
       console.error('Login failed:', error.message);
     }
