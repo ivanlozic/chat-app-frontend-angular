@@ -2,9 +2,9 @@
   <input
     [(ngModel)]="newFriendName"
     type="text"
-    placeholder="Enter friend's name"
+    placeholder="Enter friend's username"
   />
-  <button >Add</button>
+  <button (click)="addFriend()">Add</button>
 </div>
 
 <ul *ngFor="let friend of user?.friends" (click)="selectFriend(friend)">
