@@ -1,24 +1,29 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-chat-page',
   templateUrl: './chat-page.component.html',
   styleUrls: ['./chat-page.component.scss'],
 })
-export class ChatPageComponent  {
+export class ChatPageComponent implements OnInit {
+  user: User | null = null;
   text: string = '';
   selectedFriend: any;
   isFriendTyping: boolean = false;
   showEmojiPicker: boolean = false;
-  yourName: string = 'Ivan';
-  showDropdown: boolean = false
-  hasFriendRequest:boolean = false
-  
+  showDropdown: boolean = false;
+  hasFriendRequest: boolean = false;
+
   emojis: string[] = ['😊', '😂', '❤️', '👍', '🎉'];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
+  ngOnInit(): void {
+    this.user = this.authService.getAuthenticatedUser()
+  }
   openEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
   }
@@ -26,7 +31,6 @@ export class ChatPageComponent  {
   insertEmoji(emoji: string) {
     this.text += emoji;
   }
-
 
   onFriendSelected(friend: any) {
     this.selectedFriend = friend;
@@ -75,8 +79,8 @@ export class ChatPageComponent  {
   }
 
   openDropdown() {
-    this.showDropdown = !this.showDropdown
-    console.log('Dropdown opened. showDropdown:', this.showDropdown)
+    this.showDropdown = !this.showDropdown;
+    console.log('Dropdown opened. showDropdown:', this.showDropdown);
   }
 
   openNotifications() {

@@ -2,10 +2,18 @@
   <div class="co">
     <div class="header">
       <div class="profile-info">
-        <div class="profile-name">{{ yourName }}</div>
+        <div class="profile-name">{{ user?.firstName || 'Name not found' }}</div>
         <div class="notification-icon" (click)="openNotifications()">
-            <img *ngIf="hasFriendRequest" src="../../assets/images/notification.png" alt="Notifications" />
-            <img *ngIf="!hasFriendRequest" src="../../assets/images/bell.png" alt="Bell" />
+          <img
+            *ngIf="hasFriendRequest"
+            src="../../assets/images/notification.png"
+            alt="Notifications"
+          />
+          <img
+            *ngIf="!hasFriendRequest"
+            src="../../assets/images/bell.png"
+            alt="Bell"
+          />
 
           <div *ngIf="hasFriendRequest" class="notification-badge"></div>
         </div>

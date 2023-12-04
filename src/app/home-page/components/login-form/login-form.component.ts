@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterModalComponent } from './components/register-modal/register-modal.component';
-
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -36,7 +35,7 @@ export class LoginFormComponent {
         .login(this.username, this.password)
         .toPromise();
 
-      if (response && response.token) {
+      if (response) {
         this.store.dispatch({ type: 'LOGGED_IN' });
         this.router.navigate(['/chat']);
       } else {
