@@ -4,9 +4,9 @@
     type="text"
     placeholder="Enter friend's name"
   />
-  <button (click)="addFriend()">Add</button>
+  <button >Add</button>
 </div>
 
-<ul *ngFor="let friend of friends" (click)="selectFriend(friend)">
-  <li [ngClass]="{ selected: friend === selectedFriend }">{{ friend.name }}</li>
+<ul *ngFor="let friend of user?.friends" (click)="selectFriend(friend)">
+  <li [ngClass]="{ selected: friend === selectedFriend }">{{ friend.username }}</li>
 </ul>

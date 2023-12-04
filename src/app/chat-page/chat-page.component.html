@@ -2,7 +2,9 @@
   <div class="co">
     <div class="header">
       <div class="profile-info">
-        <div class="profile-name">{{ user?.firstName || 'Name not found' }}</div>
+        <div class="profile-name">
+          {{ user?.firstName || "Name not found" }}
+        </div>
         <div class="notification-icon" (click)="openNotifications()">
           <img
             *ngIf="hasFriendRequest"
@@ -27,6 +29,7 @@
     </div>
     <div class="friend-list">
       <app-friend-list
+        [user]="user"
         (friendSelected)="onFriendSelected($event)"
       ></app-friend-list>
     </div>
@@ -37,28 +40,36 @@
       <h2>
         {{
           isFriendTyping
-            ? selectedFriend.name + " is typing..."
+            ? selectedFriend.username + " is typing..."
             : selectedFriend
-            ? selectedFriend.name
+            ? selectedFriend.username
             : "No Friend Selected"
         }}
       </h2>
     </div>
-    <div class="chat-messages">
-      <div
-        *ngFor="let message of selectedFriend.messages"
-        [ngClass]="{
-          message: true,
-          sent: message.sent,
-          received: !message.sent
-        }"
-      >
-        {{ message.content }}
-        <div class="message-timestamp">
-          {{ message.timestamp | date : "shortTime" }}
+    <div *ngIf="selectedFriend && selectedFriend.messages && selectedFriend.messages.length > 0 else noMessages">
+      <div class="chat-messages">
+        <div
+          *ngFor="let message of selectedFriend.messages"
+          [ngClass]="{
+            message: true,
+            sent: message.sent,
+            received: !message.sent
+          }"
+        >
+          {{ message.content }}
+          <div class="message-timestamp">
+            {{ message.timestamp | date : "shortTime" }}
+          </div>
         </div>
       </div>
     </div>
+    
+    <ng-template #noMessages>
+      <div class="no-messages">
+        <p>No messages available. Start a conversation or add friends.</p>
+      </div>
+    </ng-template>
     <div class="chat-input">
       <input
         [(ngModel)]="text"

@@ -11,7 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FriendListComponent } from './chat-page/components/friend-list/friend-list.component';
 import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     NgbModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),

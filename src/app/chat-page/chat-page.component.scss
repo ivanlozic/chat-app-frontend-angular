@@ -3,7 +3,7 @@
     height: 100vh;
 }
 
-.co{
+.co {
     width: 25%;
     display: flex;
     flex-direction: column;
@@ -53,30 +53,32 @@
 
 .notification-icon img,
 .settings-icon img {
-  width: 24px; 
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 .notification-badge {
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
+
 .friend-list {
     flex: 1;
     background-color: #f0f0f0;
     padding: 10px;
-   
+
 }
 
 .chat {
     flex: 2;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
 }
 
@@ -113,8 +115,6 @@
     border-radius: 8px;
 
 }
-
-
 
 .chat-input {
     display: flex;
@@ -176,4 +176,8 @@ button {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
+}
+
+.no-messages{
+    margin: 20px;
 }
