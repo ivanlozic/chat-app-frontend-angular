@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { User } from '../../../shared/models/user.model';
+import { Friend, User } from '../../../shared/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { FriendService } from '../../../services/friend.service';
 
@@ -9,6 +9,7 @@ import { FriendService } from '../../../services/friend.service';
   styleUrl: './friend-list.component.scss',
 })
 export class FriendListComponent {
+  public loading: boolean = false;
   @Input() user: User | null = null;
   @Output() friendSelected = new EventEmitter<any>();
   selectedFriend: any;
@@ -20,31 +21,32 @@ export class FriendListComponent {
   ngOnInit() {
     this.selectFriend(this.user?.friends[0]);
   }
-
   addFriend() {
+    this.loading = true;
+
     const isFriendAlreadyAdded = this.user?.friends?.some(
       (friend: any) => friend.username === this.newFriendName
     );
 
     if (!isFriendAlreadyAdded) {
       const currentUsername = this.user!.username;
-    
-      this.friendService
-        .addFriend(currentUsername, this.newFriendName)
-        .subscribe(
-          (response: any) => {
-            // Handle the response if needed
-            console.log('Friend added successfully:', response);
-          },
-          (error: any) => {
-            console.error('Error adding friend:', error);
-          }
-        );
+
+      this.friendService.addFriend(currentUsername, this.newFriendName).subscribe(
+        (response: any) => {
+          console.log('Friend added successfully:', response);
+        },
+        (error: any) => {
+          console.error('Error adding friend:', error);
+        }
+      ).add(() => {
+        this.loading = false;
+      });
     } else {
       console.log('Friend is already in the friends array.');
+      this.loading = false; 
     }
   }
-  selectFriend(friend: any) {
+  selectFriend(friend?: Friend) {
     this.selectedFriend = friend;
     this.friendSelected.emit(friend);
   }

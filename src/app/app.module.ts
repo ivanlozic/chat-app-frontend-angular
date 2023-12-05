@@ -17,6 +17,7 @@ import { FriendListComponent } from './chat-page/components/friend-list/friend-l
 import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './core/components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterModalComponent,
     FriendListComponent,
     EditProfilePageComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

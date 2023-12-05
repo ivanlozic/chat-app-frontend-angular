@@ -16,13 +16,14 @@ export class ChatPageComponent implements OnInit {
   showEmojiPicker: boolean = false;
   showDropdown: boolean = false;
   hasFriendRequest: boolean = false;
+  sendingMessage: boolean = false;
 
   emojis: string[] = ['😊', '😂', '❤️', '👍', '🎉'];
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getAuthenticatedUser()
+    this.user = this.authService.getAuthenticatedUser();
   }
   openEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -35,20 +36,23 @@ export class ChatPageComponent implements OnInit {
   onFriendSelected(friend: any) {
     this.selectedFriend = friend;
   }
-
   sendMessage() {
     if (this.text.trim() !== '') {
-      this.selectedFriend.messages.push({
-        content: this.text,
-        sent: true,
-        timestamp: new Date(),
-      });
-      this.text = '';
-
-      this.isFriendTyping = true;
+      this.sendingMessage = true;
       setTimeout(() => {
-        this.receiveRandomResponse();
-      }, Math.random() * 1000 + 2000);
+        this.selectedFriend.messages.push({
+          content: this.text,
+          sent: true,
+          timestamp: new Date(),
+        });
+        this.text = '';
+        this.sendingMessage = false;
+        this.isFriendTyping = true;
+
+        setTimeout(() => {
+          this.receiveRandomResponse();
+        }, 2000);
+      }, 2000);
     }
   }
 

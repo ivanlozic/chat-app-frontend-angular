@@ -1,3 +1,7 @@
+<div *ngIf="loading" class="spinner-container">
+  <app-spinner></app-spinner>
+</div>
+
 <form (ngSubmit)="login()">
   <label for="username">Username:</label>
   <input [(ngModel)]="username" name="username" />

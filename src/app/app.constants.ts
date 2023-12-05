@@ -6,5 +6,6 @@ export const ROUTES = {
 
 export const API_ROUTES = {
   AUTH_LOGIN: '/auth/login',
-  ADD_FRIEND: '/user/add-friend'
+  ADD_FRIEND: '/user/add-friend',
+  REGISTER: '/user'
 };

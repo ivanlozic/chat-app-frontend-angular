@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterService } from '../../../../../services/register.service';
 
 @Component({
   selector: 'app-register-modal',
@@ -9,11 +9,12 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./register-modal.component.scss'],
 })
 export class RegisterModalComponent implements OnInit {
+  loading: boolean = false;
   registrationForm!: FormGroup;
   constructor(
     private activeModal: NgbActiveModal,
-    private http: HttpClient,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private registerService: RegisterService
   ) {}
 
   imageUrl: string = '';
@@ -45,11 +46,12 @@ export class RegisterModalComponent implements OnInit {
   }
 
   register() {
-    if (this.registrationForm.valid) {
+    if (this.registrationForm.valid && !this.loading) {
+      this.loading = true;
       const formData = this.registrationForm.value;
 
-      this.http
-        .post('http://localhost:5000/user', formData, { responseType: 'text' })
+      this.registerService
+        .registerUser(formData)
         .subscribe(
           (response) => {
             console.log('Registration successful:', response);
@@ -58,7 +60,10 @@ export class RegisterModalComponent implements OnInit {
           (error) => {
             console.error('Registration failed:', error);
           }
-        );
+        )
+        .add(() => {
+          this.loading = false;
+        });
     }
   }
 
