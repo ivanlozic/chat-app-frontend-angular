@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output,SimpleChanges } from '@angular/core';
 import { Friend, User } from '../../../shared/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { FriendService } from '../../../services/friend.service';
@@ -8,7 +8,7 @@ import { FriendService } from '../../../services/friend.service';
   templateUrl: './friend-list.component.html',
   styleUrl: './friend-list.component.scss',
 })
-export class FriendListComponent {
+export class FriendListComponent implements  OnChanges{
   public loading: boolean = false;
   @Input() user: User | null = null;
   @Output() friendSelected = new EventEmitter<any>();
@@ -17,6 +17,15 @@ export class FriendListComponent {
   newFriendName: string = '';
 
   constructor(private http: HttpClient, private friendService: FriendService) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+
+    if (changes.user && changes.user.currentValue) {
+    
+      console.log('User changed:', changes.user.currentValue);
+ 
+    }
+  }
 
   ngOnInit() {
     this.selectFriend(this.user?.friends[0]);
