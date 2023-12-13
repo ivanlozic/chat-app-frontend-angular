@@ -90,4 +90,9 @@ export class ChatPageComponent implements OnInit {
   openNotifications() {
     console.log('Notifications opened');
   }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
 }

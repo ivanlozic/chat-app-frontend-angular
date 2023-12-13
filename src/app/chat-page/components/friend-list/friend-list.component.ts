@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output,SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Friend, User } from '../../../shared/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { FriendService } from '../../../services/friend.service';
@@ -8,7 +8,7 @@ import { FriendService } from '../../../services/friend.service';
   templateUrl: './friend-list.component.html',
   styleUrl: './friend-list.component.scss',
 })
-export class FriendListComponent implements  OnChanges{
+export class FriendListComponent {
   public loading: boolean = false;
   @Input() user: User | null = null;
   @Output() friendSelected = new EventEmitter<any>();
@@ -17,15 +17,6 @@ export class FriendListComponent implements  OnChanges{
   newFriendName: string = '';
 
   constructor(private http: HttpClient, private friendService: FriendService) {}
-
-  ngOnChanges(changes: SimpleChanges) {
-
-    if (changes.user && changes.user.currentValue) {
-    
-      console.log('User changed:', changes.user.currentValue);
- 
-    }
-  }
 
   ngOnInit() {
     this.selectFriend(this.user?.friends[0]);
@@ -40,19 +31,22 @@ export class FriendListComponent implements  OnChanges{
     if (!isFriendAlreadyAdded) {
       const currentUsername = this.user!.username;
 
-      this.friendService.addFriend(currentUsername, this.newFriendName).subscribe(
-        (response: any) => {
-          console.log('Friend added successfully:', response);
-        },
-        (error: any) => {
-          console.error('Error adding friend:', error);
-        }
-      ).add(() => {
-        this.loading = false;
-      });
+      this.friendService
+        .addFriend(currentUsername, this.newFriendName)
+        .subscribe(
+          (response: any) => {
+            console.log('Friend added successfully:', response);
+          },
+          (error: any) => {
+            console.error('Error adding friend:', error);
+          }
+        )
+        .add(() => {
+          this.loading = false;
+        });
     } else {
       console.log('Friend is already in the friends array.');
-      this.loading = false; 
+      this.loading = false;
     }
   }
   selectFriend(friend?: Friend) {

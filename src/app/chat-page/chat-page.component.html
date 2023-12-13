@@ -4,6 +4,7 @@
       <div class="profile-info">
         <div class="profile-name">
           {{ user?.firstName || "Name not found" }}
+          <button (click)="logout()">Logout</button>
         </div>
         <div class="notification-icon" (click)="openNotifications()">
           <img
@@ -47,7 +48,14 @@
         }}
       </h2>
     </div>
-    <div *ngIf="selectedFriend && selectedFriend.messages && selectedFriend.messages.length > 0 else noMessages">
+    <div
+      *ngIf="
+        selectedFriend &&
+          selectedFriend.messages &&
+          selectedFriend.messages.length > 0;
+        else noMessages
+      "
+    >
       <div class="chat-messages">
         <div
           *ngFor="let message of selectedFriend.messages"
@@ -64,7 +72,7 @@
         </div>
       </div>
     </div>
-    
+
     <ng-template #noMessages>
       <div class="no-messages">
         <p>No messages available. Start a conversation or add friends.</p>
@@ -92,7 +100,6 @@
     </div>
   </div>
 </div>
-
 
 <div *ngIf="sendingMessage" class="spinner-container">
   <app-spinner></app-spinner>

@@ -15,7 +15,13 @@ export class AuthService {
   private authenticatedUser: User | null = null;
   private baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private store: Store) {}
+  constructor(private http: HttpClient, private store: Store) {
+    const storedUser = localStorage.getItem('authenticatedUser');
+    if (storedUser) {
+      this.authenticatedUser = JSON.parse(storedUser);
+      this.store.dispatch(AuthActions.loginSuccess());
+    }
+  }
 
   login(username: string, password: string): Observable<any> {
     const credentials = { username, password };
@@ -25,6 +31,10 @@ export class AuthService {
         tap((response) => {
           if (response.token && response.user) {
             this.authenticatedUser = response.user;
+            localStorage.setItem(
+              'authenticatedUser',
+              JSON.stringify(this.authenticatedUser)
+            );
             this.store.dispatch(AuthActions.loginSuccess());
           }
         })
@@ -32,6 +42,7 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('authenticatedUser');
     this.authenticatedUser = null;
     this.store.dispatch(AuthActions.logout());
   }
