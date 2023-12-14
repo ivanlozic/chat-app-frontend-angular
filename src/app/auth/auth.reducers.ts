@@ -23,6 +23,7 @@ export const selectError = createSelector(
 export const initialState: AuthState = {
   loggedIn: false,
   error: null,
+
 };
 
 export const authReducer = createReducer(

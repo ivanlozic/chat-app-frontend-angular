@@ -19,7 +19,9 @@ export class AuthService {
     const storedUser = localStorage.getItem('authenticatedUser');
     if (storedUser) {
       this.authenticatedUser = JSON.parse(storedUser);
-      this.store.dispatch(AuthActions.loginSuccess());
+      this.store.dispatch(
+        AuthActions.loginSuccess({ user: this.authenticatedUser })
+      );
     }
   }
 
@@ -35,7 +37,8 @@ export class AuthService {
               'authenticatedUser',
               JSON.stringify(this.authenticatedUser)
             );
-            this.store.dispatch(AuthActions.loginSuccess());
+            const user: User = response.user;
+            this.store.dispatch(AuthActions.loginSuccess({ user }));
           }
         })
       );
