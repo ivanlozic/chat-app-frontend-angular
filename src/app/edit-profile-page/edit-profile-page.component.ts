@@ -11,13 +11,13 @@ import { AuthService } from '../auth/auth.service';
 export class EditProfilePageComponent implements OnInit {
   user: User = {
     id: 1,
-    username: 'example',
-    email: 'example@example.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    password: 'password',
-    repeatPassword: 'password',
-    mobileNumber: '1234567890',
+    username: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    repeatPassword: '',
+    mobileNumber: '',
     friends: [],
   };
 
@@ -30,7 +30,7 @@ export class EditProfilePageComponent implements OnInit {
     const authenticatedUser = this.authService.getAuthenticatedUser();
 
     if (authenticatedUser) {
-      this.user = authenticatedUser;
+      this.user = { ...authenticatedUser };
     }
   }
 
