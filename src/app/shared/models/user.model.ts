@@ -7,6 +7,7 @@ export interface User {
   password: string;
   repeatPassword: string;
   mobileNumber: string;
+  receivedFriendRequests: any[];
   friends: Friend[];
 }
 
@@ -14,4 +15,5 @@ export interface Friend {
   id: number;
   username: string;
   messages: string[];
+  pendingRequest: boolean;
 }

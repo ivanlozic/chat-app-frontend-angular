@@ -13,7 +13,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   updateUserProfile(user: User): Observable<any> {
-    const url = `${this.baseUrl}/users/${user.id}/update-profile`;
+    const url = `${this.baseUrl}/user/${user.id}`;
     return this.http.put(url, user);
   }
 }

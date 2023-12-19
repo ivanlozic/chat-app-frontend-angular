@@ -46,6 +46,7 @@ export class RegisterModalComponent implements OnInit {
   }
 
   register() {
+    console.log('as')
     if (this.registrationForm.valid && !this.loading) {
       this.loading = true;
       const formData = this.registrationForm.value;

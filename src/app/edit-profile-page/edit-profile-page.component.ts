@@ -18,6 +18,7 @@ export class EditProfilePageComponent implements OnInit {
     password: '',
     repeatPassword: '',
     mobileNumber: '',
+    receivedFriendRequests: [],
     friends: [],
   };
 

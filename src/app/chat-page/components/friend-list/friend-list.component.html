@@ -11,6 +11,18 @@
   <button (click)="addFriend()">Add</button>
 </div>
 
+<div *ngIf="user!.receivedFriendRequests.length > 0">
+  <h2>Friend Requests</h2>
+  <ul>
+    <li *ngFor="let request of user?.receivedFriendRequests">
+      {{ request.username }}
+      <button (click)="acceptFriendRequest(request)">Accept</button>
+      <button (click)="rejectFriendRequest(request)">Delete</button>
+    </li>
+  </ul>
+</div>
 <ul *ngFor="let friend of user?.friends" (click)="selectFriend(friend)">
-  <li [ngClass]="{ selected: friend === selectedFriend }">{{ friend.username }}</li>
+  <li [ngClass]="{ selected: friend === selectedFriend }">
+    {{ friend.username }}
+  </li>
 </ul>

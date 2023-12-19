@@ -12,7 +12,22 @@ export class FriendService {
 
   addFriend(currentUser: string, friendUsername: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}${API_ROUTES.ADD_FRIEND}`, {
-      currentUser,friendUsername,
+      currentUser,
+      friendUsername,
+    });
+  }
+
+  sendFriendRequest(currentUser: string, friendUsername: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}${API_ROUTES.SEND_FRIEND_REQUEST}`, {
+      currentUser,
+      friendUsername,
+    });
+  }
+
+  rejectFriendRequest(currentUser: string, friendUsername: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}${API_ROUTES.REJECT_FRIEND_REQUEST}`, {
+      currentUser,
+      friendUsername,
     });
   }
 }

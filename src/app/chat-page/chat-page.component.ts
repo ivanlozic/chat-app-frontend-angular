@@ -24,6 +24,7 @@ export class ChatPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.getAuthenticatedUser();
+    console.log(this.user)
   }
   openEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
