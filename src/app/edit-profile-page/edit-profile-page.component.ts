@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../auth/auth.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-edit-profile-page',
@@ -24,7 +25,8 @@ export class EditProfilePageComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -33,6 +35,7 @@ export class EditProfilePageComponent implements OnInit {
     if (authenticatedUser) {
       this.user = { ...authenticatedUser };
     }
+    console.log(this.store);
   }
 
   onSubmit() {

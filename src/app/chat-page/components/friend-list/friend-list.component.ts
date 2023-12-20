@@ -20,7 +20,6 @@ export class FriendListComponent {
 
   ngOnInit() {
     this.selectFriend(this.user?.friends[0]);
-    console.log(this.user)
   }
 
   addFriend() {
@@ -63,7 +62,7 @@ export class FriendListComponent {
       const currentUsername = this.user!.username;
 
       this.friendService
-        .addFriend(currentUsername, this.newFriendName)
+        .addFriend(currentUsername, friend.username)
         .subscribe(
           (response: any) => {
             console.log('Friend added successfully:', response);
