@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Friend, User } from '../../../shared/models/user.model';
-import { HttpClient } from '@angular/common/http';
 import { FriendService } from '../../../services/friend.service';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../../auth/auth.actions';
 
 @Component({
   selector: 'app-friend-list',
@@ -16,7 +17,7 @@ export class FriendListComponent {
   searchText: string = '';
   newFriendName: string = '';
 
-  constructor(private http: HttpClient, private friendService: FriendService) {}
+  constructor(private friendService: FriendService, private store: Store) {}
 
   ngOnInit() {
     this.selectFriend(this.user?.friends[0]);
@@ -35,8 +36,10 @@ export class FriendListComponent {
       this.friendService
         .sendFriendRequest(currentUsername, this.newFriendName)
         .subscribe(
-          (response: any) => {
-            console.log('Friend request sent successfully:', response);
+          (updatedUser: User) => {
+            this.store.dispatch(
+              AuthActions.updateUserData({ user: updatedUser })
+            );
           },
           (error: any) => {
             console.error('Error sending friend request:', error);
@@ -64,8 +67,10 @@ export class FriendListComponent {
       this.friendService
         .addFriend(currentUsername, friend.username)
         .subscribe(
-          (response: any) => {
-            console.log('Friend added successfully:', response);
+          (updatedUser: User) => {
+            this.store.dispatch(
+              AuthActions.updateUserData({ user: updatedUser })
+            );
           },
           (error: any) => {
             console.error('Error adding friend:', error);
@@ -81,7 +86,23 @@ export class FriendListComponent {
   }
 
   rejectFriendRequest(friend: Friend) {
-    console.log('Rejected friend request from:', friend);
+    this.loading = true;
+
+    const currentUsername = this.user!.username;
+
+    this.friendService
+      .rejectFriendRequest(currentUsername, friend.username)
+      .subscribe(
+        (response: any) => {
+          console.log('Friend request rejected successfully:', response);
+        },
+        (error: any) => {
+          console.error('Error rejecting friend request:', error);
+        }
+      )
+      .add(() => {
+        this.loading = false;
+      });
   }
 
   selectFriend(friend?: Friend) {

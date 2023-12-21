@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../shared/models/user.model';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../auth/auth.reducers';
+import { Message } from '../shared/models/message.model';
+import { FriendService } from '../services/friend.service';
+import * as AuthActions from '../auth/auth.actions';
 
 @Component({
   selector: 'app-chat-page',
@@ -20,10 +25,17 @@ export class ChatPageComponent implements OnInit {
 
   emojis: string[] = ['😊', '😂', '❤️', '👍', '🎉'];
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private store: Store,
+    private friendService: FriendService
+  ) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getAuthenticatedUser();
+    this.store.select(selectUser).subscribe((user: User | null) => {
+      this.user = user;
+    });
   }
   openEmojiPicker() {
     this.showEmojiPicker = !this.showEmojiPicker;
@@ -35,24 +47,38 @@ export class ChatPageComponent implements OnInit {
 
   onFriendSelected(friend: any) {
     this.selectedFriend = friend;
+    console.log(this.selectedFriend);
   }
   sendMessage() {
-    if (this.text.trim() !== '') {
+    if (this.selectedFriend && Array.isArray(this.selectedFriend.messages)) {
       this.sendingMessage = true;
-      setTimeout(() => {
-        this.selectedFriend.messages.push({
-          content: this.text,
-          sent: true,
-          timestamp: new Date(),
-        });
-        this.text = '';
-        this.sendingMessage = false;
-        this.isFriendTyping = true;
 
-        setTimeout(() => {
-          this.receiveRandomResponse();
-        }, 2000);
-      }, 2000);
+      const message: Message = {
+        id: 1,
+        content: this.text,
+        timestamp: new Date(),
+      };
+
+      this.friendService
+        .sendMessage(this.user!.username, this.selectedFriend.username, message)
+        .subscribe(
+          (updatedUser: User) => {
+            this.text = '';
+            this.sendingMessage = false;
+            this.isFriendTyping = true;
+
+            this.selectedFriend = updatedUser.friends.find(
+              (friend) => friend.username === this.selectedFriend.username
+            );
+            this.store.dispatch(
+              AuthActions.updateUserData({ user: updatedUser })
+            );
+          },
+          (error) => {
+            console.error('Error sending message:', error);
+            this.sendingMessage = false;
+          }
+        );
     }
   }
 

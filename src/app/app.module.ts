@@ -18,6 +18,7 @@ import { EditProfilePageComponent } from './edit-profile-page/edit-profile-page.
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
+import { authReducer } from './auth/auth.reducers';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { SpinnerComponent } from './core/components/spinner/spinner.component';
     ReactiveFormsModule,
     NgbModule,
     StoreModule.forRoot({}, {}),
+    StoreModule.forFeature('auth', authReducer),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,

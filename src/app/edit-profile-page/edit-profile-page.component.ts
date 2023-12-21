@@ -35,7 +35,6 @@ export class EditProfilePageComponent implements OnInit {
     if (authenticatedUser) {
       this.user = { ...authenticatedUser };
     }
-    console.log(this.store);
   }
 
   onSubmit() {

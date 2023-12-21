@@ -10,4 +10,5 @@ export const API_ROUTES = {
   SEND_FRIEND_REQUEST: '/user/send-friend-request',
   REJECT_FRIEND_REQUEST: '/user/reject-friend-request',
   REGISTER: '/user',
+  SEND_MESSAGE: '/user/send-message',
 };
