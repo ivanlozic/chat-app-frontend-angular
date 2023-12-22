@@ -61,6 +61,8 @@
           *ngFor="let message of selectedFriend.messages"
           [ngClass]="{
             message: true,
+            sent: message.sender,
+            received: message.sender !== user!.username
           }"
         >
           {{ message.content }}

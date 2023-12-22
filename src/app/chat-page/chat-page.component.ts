@@ -47,7 +47,6 @@ export class ChatPageComponent implements OnInit {
 
   onFriendSelected(friend: any) {
     this.selectedFriend = friend;
-    console.log(this.selectedFriend);
   }
   sendMessage() {
     if (this.selectedFriend && Array.isArray(this.selectedFriend.messages)) {
@@ -56,6 +55,7 @@ export class ChatPageComponent implements OnInit {
       const message: Message = {
         id: 1,
         content: this.text,
+        sender: this.user!.username,
         timestamp: new Date(),
       };
 
