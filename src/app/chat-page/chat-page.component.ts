@@ -7,6 +7,7 @@ import { selectUser } from '../auth/auth.reducers';
 import { Message } from '../shared/models/message.model';
 import { FriendService } from '../services/friend.service';
 import * as AuthActions from '../auth/auth.actions';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-chat-page',
@@ -53,7 +54,7 @@ export class ChatPageComponent implements OnInit {
       this.sendingMessage = true;
 
       const message: Message = {
-        id: 1,
+        id: uuidv4(),
         content: this.text,
         sender: this.user!.username,
         timestamp: new Date(),
@@ -120,5 +121,11 @@ export class ChatPageComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  deleteMessage(message: Message) {
+    if (message.sender === this.user?.username) {
+      message.deleted = true;
+    }
   }
 }

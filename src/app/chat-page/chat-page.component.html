@@ -61,14 +61,27 @@
           *ngFor="let message of selectedFriend.messages"
           [ngClass]="{
             message: true,
-            sent: message.sender,
-            received: message.sender !== user!.username
+            sent: message.sender && !message.deleted,
+            received:
+              message.sender &&
+              message.sender !== user?.username &&
+              !message.deleted,
+            deleted: message.deleted
           }"
         >
-          {{ message.content }}
+          <span *ngIf="!message.deleted">{{ message.content }}</span>
+          <span *ngIf="message.deleted" class="deleted-message"
+            >This message has been deleted</span
+          >
           <div class="message-timestamp">
             {{ message.timestamp | date : "shortTime" }}
           </div>
+          <button
+            *ngIf="message.sender === user?.username && !message.deleted"
+            (click)="deleteMessage(message)"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

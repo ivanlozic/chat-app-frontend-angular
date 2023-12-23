@@ -1,6 +1,7 @@
 export interface Message {
-  id: number;
+  id: string;
   sender: string;
   content: string;
   timestamp: Date;
+  deleted?: boolean;
 }

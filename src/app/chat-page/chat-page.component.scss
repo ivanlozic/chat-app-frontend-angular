@@ -189,3 +189,8 @@ button {
     transform: translate(-50%, -50%);
     z-index: 9999;
 }
+
+.deleted-message {
+    color: #777;
+    font-style: italic;
+  }
