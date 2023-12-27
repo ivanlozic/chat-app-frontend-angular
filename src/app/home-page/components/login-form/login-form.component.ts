@@ -34,7 +34,9 @@ export class LoginFormComponent {
     this.loading = true;
 
     try {
-      const response = await this.authService.login(this.username, this.password).toPromise();
+      const response = await this.authService
+        .login(this.username, this.password)
+        .toPromise();
 
       if (response) {
         this.store.dispatch({ type: 'LOGGED_IN' });
@@ -42,10 +44,11 @@ export class LoginFormComponent {
       } else {
         console.error('Login failed: Invalid token in response');
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Login failed:', error.message);
     } finally {
       this.loading = false;
     }
   }
+
 }
