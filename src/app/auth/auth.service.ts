@@ -14,6 +14,7 @@ import { API_ROUTES } from '../app.constants';
 export class AuthService {
   private authenticatedUser: User | null = null;
   private baseUrl = environment.apiUrl;
+  private isAuthenticated = false;
 
   constructor(private http: HttpClient, private store: Store) {
     const storedUser = localStorage.getItem('authenticatedUser');
@@ -25,8 +26,13 @@ export class AuthService {
     }
   }
 
+  isLoggedIn(): boolean {
+    return this.isAuthenticated;
+  }
+
   login(username: string, password: string): Observable<any> {
     const credentials = { username, password };
+    this.isAuthenticated = true;
     return this.http
       .post<any>(`${this.baseUrl}${API_ROUTES.AUTH_LOGIN}`, credentials)
       .pipe(
@@ -48,6 +54,7 @@ export class AuthService {
     localStorage.removeItem('authenticatedUser');
     this.authenticatedUser = null;
     this.store.dispatch(AuthActions.logout());
+    this.isAuthenticated = false;
   }
 
   getAuthenticatedUser(): User | null {

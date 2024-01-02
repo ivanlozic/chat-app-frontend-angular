@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterService } from '../../../../../services/register.service';
 
@@ -20,15 +25,29 @@ export class RegisterModalComponent implements OnInit {
   imageUrl: string = '';
 
   ngOnInit(): void {
-    this.registrationForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      repeatPassword: ['', Validators.required],
-      mobileNumber: ['', Validators.required],
-    });
+    this.registrationForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        repeatPassword: ['', Validators.required],
+        mobileNumber: ['', Validators.required],
+      },
+      {
+        validator: this.passwordMatchValidator,
+      }
+    );
+  }
+
+  passwordMatchValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    const password = control.get('password')?.value;
+    const repeatPassword = control.get('repeatPassword')?.value;
+
+    return password === repeatPassword ? null : { passwordMismatch: true };
   }
 
   handleImageUpload(event: any) {
@@ -46,10 +65,16 @@ export class RegisterModalComponent implements OnInit {
   }
 
   register() {
-    console.log('as')
     if (this.registrationForm.valid && !this.loading) {
+      if (this.registrationForm.hasError('passwordMismatch')) {
+        console.error('Passwords do not match');
+        return;
+      }
+
       this.loading = true;
       const formData = this.registrationForm.value;
+
+      delete formData.repeatPassword;
 
       this.registerService
         .registerUser(formData)
