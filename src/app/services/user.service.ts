@@ -16,4 +16,11 @@ export class UserService {
     const url = `${this.baseUrl}/user/${user.id}`;
     return this.http.put(url, user);
   }
+
+  
+  deleteUser(userId: number): Observable<void> {
+    const url = `${this.baseUrl}/user/${userId}`; 
+
+    return this.http.delete<void>(url);
+  }
 }

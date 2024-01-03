@@ -19,6 +19,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './core/components/spinner/spinner.component';
 import { authReducer } from './auth/auth.reducers';
+import { ConfirmationModalComponent } from './core/components/confirmation-modal/confirmation-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { authReducer } from './auth/auth.reducers';
     FriendListComponent,
     EditProfilePageComponent,
     SpinnerComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { authReducer } from './auth/auth.reducers';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

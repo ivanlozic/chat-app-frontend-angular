@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -13,13 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class EditProfilePageComponent implements OnInit {
   userForm!: FormGroup;
+  showConfirmationModal: boolean = false;
+  confirmationMessage: string = 'Are you sure you want to delete your account?';
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
-    private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {}
 
@@ -126,5 +126,36 @@ export class EditProfilePageComponent implements OnInit {
       duration: 3000,
       panelClass: ['error-snackbar'],
     });
+  }
+
+  onDelete() {
+    this.showConfirmationModal = true;
+  }
+
+  onConfirmation(confirmed: boolean) {
+    if (confirmed) {
+      this.deleteUser();
+    }
+
+    this.showConfirmationModal = false;
+  }
+
+  private deleteUser() {
+    const authenticatedUser = this.authService.getAuthenticatedUser();
+    const userId = authenticatedUser?.id;
+
+    if (userId) {
+      this.userService.deleteUser(userId).subscribe(
+        () => {
+          console.log('User deleted successfully.');
+          this.authService.logout();
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.error('Error deleting user:', error);
+          this.showFailurePrompt();
+        }
+      );
+    }
   }
 }
